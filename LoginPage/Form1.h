@@ -1,4 +1,5 @@
 #pragma once
+#include "DB.h";
 
 namespace CppCLRWinformsProjekt {
 
@@ -21,6 +22,7 @@ namespace CppCLRWinformsProjekt {
 			//
 			//TODO: Konstruktorcode hier hinzufügen.
 			//
+			data = gcnew DB();
 		}
 
 	protected:
@@ -44,6 +46,8 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::Panel^ panel2;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Button^ button2;
+	private: DB^ data;
+	private: System::Windows::Forms::DataGridView^ dataGridView1;
 
 	private:
 		/// <summary>
@@ -67,6 +71,8 @@ namespace CppCLRWinformsProjekt {
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -177,11 +183,22 @@ namespace CppCLRWinformsProjekt {
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &Form1::button2_Click);
 			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Location = System::Drawing::Point(402, 65);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->RowHeadersWidth = 51;
+			this->dataGridView1->RowTemplate->Height = 24;
+			this->dataGridView1->Size = System::Drawing::Size(281, 340);
+			this->dataGridView1->TabIndex = 9;
+			// 
 			// Form1
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->BackColor = System::Drawing::Color::DimGray;
-			this->ClientSize = System::Drawing::Size(392, 469);
+			this->ClientSize = System::Drawing::Size(764, 469);
+			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->panel2);
@@ -198,12 +215,14 @@ namespace CppCLRWinformsProjekt {
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Login";
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 	private: System::Void Form1_Load(System::Object^ sender, System::EventArgs^ e) {
+		query();
 	}
 	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
@@ -213,6 +232,14 @@ namespace CppCLRWinformsProjekt {
 	}
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		Application::Exit();
+	}
+	public: void query() {
+		/*
+		data->openConnection();
+		dataGridView1->DataSource = data->getDataTable();
+		textBox1->Text = data->getData();
+		data->closeConnection();
+		*/
 	}
 };
 }
